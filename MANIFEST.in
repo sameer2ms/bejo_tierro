@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include bajo_tierro *.css
+recursive-include bajo_tierro *.csv
+recursive-include bajo_tierro *.html
+recursive-include bajo_tierro *.ico
+recursive-include bajo_tierro *.js
+recursive-include bajo_tierro *.json
+recursive-include bajo_tierro *.md
+recursive-include bajo_tierro *.png
+recursive-include bajo_tierro *.py
+recursive-include bajo_tierro *.svg
+recursive-include bajo_tierro *.txt
+recursive-exclude bajo_tierro *.pyc
