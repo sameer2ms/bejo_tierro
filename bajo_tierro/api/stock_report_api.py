@@ -3,7 +3,7 @@ from bajo_tierro_customization.bajo_tierro_customization.report.stock_balance_cu
 import frappe
 
 @frappe.whitelist()
-def get_data_from_stock_report(from_date, to_date, company, warehouse, item_code):
+def get_data_from_stock_report(from_date, to_date, company, item_code, warehouse = None):
     
     # print("\n\n this are filters", from_date, to_date, company, warehouse, item_code)
     # company from_date to_date item_code warehouse
