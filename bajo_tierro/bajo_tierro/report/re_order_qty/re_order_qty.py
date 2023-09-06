@@ -62,6 +62,12 @@ def get_columns(filters):
 			"width": 150,
 		},
 		{
+			"label": _("Item Name"),
+			"fieldtype": "Data",
+			"fieldname": "item_name",
+			"width": 150,
+		},
+		{
 			"label": _("Item Group"),
 			"fieldtype": "Link",
 			"fieldname": "item_group",
