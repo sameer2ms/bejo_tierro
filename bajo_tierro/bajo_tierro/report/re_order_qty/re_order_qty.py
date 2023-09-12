@@ -308,7 +308,7 @@ def get_date(filters):
 			stock3month_= (int(avg6_) * 3) - stock3month_sub,
 			if int(stock3month_[0]) >= 0:
 
-				r = int(stock3month_[0]) + (((int(avg6_) * 3) - (int(avg6_) * 5)) + (d.lead_time/30) ) * int(avg6_)
+				r = int(stock3month_[0]) + ((int(avg6_) * 3) - (int(avg6_) * 5)) + (d.lead_time/30) * int(avg6_)
 				if r > 0:
 					roq_ = r
 				else: roq_ = 0 
