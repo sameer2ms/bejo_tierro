@@ -56,6 +56,9 @@ def check_customer_by_mobile(mobile_number):
         "mobile_no": mobile_number
     }
     print(" \n\n this is customer", mobile_number)
-    customer_list = frappe.get_list("Customer", filters=filters)
-    return len(customer_list) > 0
+    customer_list = frappe.get_list("Customer", filters=filters, fields=["*"])
+    if customer_list:
+        return customer_list
+    else:
+        return False
 # mobile_no

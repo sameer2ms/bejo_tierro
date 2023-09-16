@@ -290,8 +290,12 @@ def get_date(filters):
 				stock = d.stock
 				stock3month_sub = d.stock
 					
-			avg3_ = (d.col_1 + d.col_2 + d.col_3)/3 if (d.col_1 + d.col_2 + d.col_3)/3 else 1
-			avg6_ = (d.col_2 + d.col_3 + d.col_4 + d.col_5 + d.col_6 + d.col_1)/6
+			avg3_1 = round(d.col_1 + d.col_2 + d.col_3)/3 
+			avg6_1 = round(d.col_2 + d.col_3 + d.col_4 + d.col_5 + d.col_6 + d.col_1)/6
+
+			avg3_ = int(avg3_1) + (1 if avg3_1 - int(avg3_1) >= 0.5 else 0)
+			avg6_ = int(avg6_1) + (1 if avg6_1 - int(avg6_1) >= 0.5 else 0)
+			
 			ratio_ = (avg3_/stock if stock > 0 else 1)*100
 
 			moving_ = ""
