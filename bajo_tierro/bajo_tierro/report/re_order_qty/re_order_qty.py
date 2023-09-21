@@ -222,9 +222,22 @@ def get_date(filters):
 	if filters.get("item"):
 		condition += " and tsii.item_code = '{0}' ".format(filters.get("item"))
 
+	warehouse_cond = " and 1 = 1 "
 	if filters.get("company"):
+		
 		condition += " and tsi.company = '{0}' ".format(filters.get("company"))
 		in_transit_add += " and tpr.company = '{0}' ".format(filters.get("company"))
+
+		warehouse = frappe.get_all("Warehouse", {"company": filters.get("company")})
+		warehouse_str = "("
+		for index, w in enumerate(warehouse):
+			if index == len(warehouse) - 1:
+				warehouse_str += "'"+w.name+"'" 
+			else: 	
+				warehouse_str += "'"+w.name+"'," 
+		warehouse_str += ")"
+		warehouse_cond += f" and tb.warehouse in  {warehouse_str}"
+		
 
 	if filters.get("item_group"):
 		condition += " and tsii.item_group = '{0}' ".format(filters.get("item_group"))	
@@ -262,7 +275,7 @@ def get_date(filters):
 		    {4}   
 			SUM(CASE WHEN tsii.creation between '{2}' and '{3}' THEN qty ELSE 0 END) AS total,
 			(SELECT SUM(actual_qty) from `tabBin` tb   
-						WHERE tb.item_code = tsii.item_code 
+						WHERE tb.item_code = tsii.item_code {5}
 						group by item_code) as stock,
 		    (Select lead_time_days from `tabItem` where name = tsii.item_code) as  lead_time 
 						FROM
@@ -275,7 +288,7 @@ def get_date(filters):
 						GROUP BY
 							tsii.item_code;
 
-						""".format(condition, inner_query, from_date, to_date, transit), as_dict = 1, debug = 1)	
+						""".format(condition, inner_query, from_date, to_date, transit, warehouse_cond), as_dict = 1, debug = 0)	
 
 
 	if query:
