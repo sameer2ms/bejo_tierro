@@ -22,7 +22,6 @@ def get_columns(filters):
 	months = delta.years * 12 + delta.months
 	
 	# month error if >12 and less then 6
-	print("\n\n this is month ", months)
 	if months >12:
 		frappe.throw(" Date range cannot be more than 12 months")
 	elif months+1 < 6:
@@ -325,7 +324,7 @@ def get_date(filters):
 			stock3month_= (int(avg6_) * 3) - stock3month_sub,
 			if int(stock3month_[0]) >= 0:
 
-				r = int(stock3month_[0]) + ((int(avg6_) * 3) - (int(avg6_) * 5)) + (d.lead_time/30) * int(avg6_)
+				r = int(stock3month_[0]) + ((int(avg6_) * 5) - (int(avg6_) * 3)) + (d.lead_time/30) * int(avg6_)
 				if r > 0:
 					roq_ = r
 				else: roq_ = 0 
