@@ -321,15 +321,41 @@ def get_date(filters):
 				moving_ = "Fast_moving"	
 
 			# =IF(AA2>=0, (AA2+(X2-W2)+(Y2/30)*R2),0)	
-			stock3month_= (int(avg6_) * 3) - stock3month_sub,
-			if int(stock3month_[0]) >= 0:
-
-				r = int(stock3month_[0]) + ((int(avg6_) * 5) - (int(avg6_) * 3)) + (d.lead_time/30) * int(avg6_)
-				if r > 0:
-					roq_ = r
-				else: roq_ = 0 
+			new_stock_3_month = 0
+			stock3month_ = 0
+			if d.stock == None:
+				stock3month_= (int(avg6_) * 3) - 0,
 				
-			else: roq_ = 0	
+			elif d.stock == 0.0:
+				stock3month_= (int(avg6_) * 3) - 0,
+			else:
+				stock3month_= int((int(avg6_) * 3) - int(d.stock))
+			# stock3month_= (int(avg6_) * 3) - stock,
+			
+			
+
+			if isinstance(stock3month_, int):
+				new_stock_3_month = stock3month_
+				
+				if int(stock3month_) >= 0:
+
+					r = int(stock3month_) + ((int(avg6_) * 5) - (int(avg6_) * 3)) + (d.lead_time/30) * int(avg6_)
+					if r > 0:
+						roq_ = r
+					else: roq_ = 0 
+					
+				else: roq_ = 0
+			else : 
+					
+				new_stock_3_month = int(stock3month_[0])
+				if int(stock3month_[0]) >= 0:
+
+					r = int(stock3month_[0]) + ((int(avg6_) * 5) - (int(avg6_) * 3)) + (d.lead_time/30) * int(avg6_)
+					if r > 0:
+						roq_ = r
+					else: roq_ = 0 
+					
+				else: roq_ = 0	
 			d.update({
 				'avg3': avg3_,
 				'avg6': avg6_,
@@ -339,7 +365,7 @@ def get_date(filters):
 				'unique': "abc",
 				'month3': int(avg6_) * 3,
 				'month5': int(avg6_) * 5,
-				'stock3month': int(stock3month_[0]),
+				'stock3month': new_stock_3_month,
 				'roq': roq_,
 				'in_transit': d.in_transit if d.in_transit else 0
 
